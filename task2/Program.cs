@@ -6,10 +6,12 @@ string filename1 = "Файл 1";
 string filename2 = "Файл 2";
 string filename3 = "Файл 3";
 
-static void ProcessData(string dataName)
+static string ProcessData(string dataName)
 {
     Thread.Sleep(3000);
-    Console.WriteLine($"Обработка файла '{dataName}' завершилась синхронно за 3 секунды");    
+    string syncResult = $"Обработка файла '{dataName}' завершилась синхронно за 3 секунды";
+
+    return syncResult;
 }
 
 
@@ -30,9 +32,9 @@ asyncStopwatch.Stop();
 Console.WriteLine($"Ассинхронная обработка завершилась за {asyncStopwatch.Elapsed.TotalSeconds} секунд.");
 
 Stopwatch syncStopwatch = Stopwatch.StartNew();
-ProcessData(filename1);
-ProcessData(filename2);
-ProcessData(filename3);
+Console.WriteLine(ProcessData(filename1));
+Console.WriteLine(ProcessData(filename2));
+Console.WriteLine(ProcessData(filename3));
 syncStopwatch.Stop();
 Console.WriteLine($"Синхронная обработка завершилась за {syncStopwatch.Elapsed.TotalSeconds} секунд.");
 
