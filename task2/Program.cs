@@ -15,20 +15,24 @@ static string ProcessData(string dataName)
 }
 
 
-async Task ProcessDataAsync(string dataName)
+async Task<string> ProcessDataAsync(string dataName)
 {
 
     await Task.Delay(3000);
-    Console.WriteLine($"Обработка файла '{dataName}' завершилась ассинхронно за 3 секунды");
+    string asyncResult = $"Обработка файла '{dataName}' завершилась ассинхронно за 3 секунды";
 
+    return asyncResult;
 }
 
 Stopwatch asyncStopwatch = Stopwatch.StartNew();
-Task task1 = ProcessDataAsync(filename1);
-Task task2 = ProcessDataAsync(filename2);
-Task task3 = ProcessDataAsync(filename3);
+Task<string> task1 = ProcessDataAsync(filename1);
+Task<string> task2 = ProcessDataAsync(filename2);
+Task<string> task3 = ProcessDataAsync(filename3);
 await Task.WhenAll(task1, task2, task3);
 asyncStopwatch.Stop();
+Console.WriteLine(task1.Result);
+Console.WriteLine(task2.Result);
+Console.WriteLine(task3.Result);
 Console.WriteLine($"Ассинхронная обработка завершилась за {asyncStopwatch.Elapsed.TotalSeconds} секунд.");
 
 Stopwatch syncStopwatch = Stopwatch.StartNew();
